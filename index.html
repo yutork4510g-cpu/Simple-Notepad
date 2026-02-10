@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Notepad</title>
+</head>
+<body>
+  <textarea name="memo" id="memo" cols="185" rows="40"></textarea>
+  <button onclick="downloadText()">Export as a text file</button>
+
+  <script>
+    function downloadText() {
+      // テキストエリアの内容を取得
+      const text = document.getElementById('memo').value;
+
+      // ダウンロードするファイル名を設定（拡張子は.txt）
+      const filename = 'memo.txt';
+
+      // Blobオブジェクトを作成
+      const blob = new Blob([text], { type: 'text/plain' });
+
+      // ダウンロード用のリンクを作成
+      const element = document.createElement('a');
+      element.href = URL.createObjectURL(blob);
+      element.download = filename;
+      document.body.appendChild(element);
+
+      // クリックイベントを発火してダウンロード開始
+      element.click();
+
+      // 使用済みの要素を削除
+      document.body.removeChild(element);
+    }
+  </script>
+</body>
+</html>
